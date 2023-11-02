@@ -1,8 +1,10 @@
 N, M = map(int, input().split())
-A = list(map(int, input().split()))
+
+
 boundaries = []
 for i in range(M):
     boundaries.append(input())
+
 
 def find_num(A, b):
     L, R = map(int, b.split())
@@ -13,6 +15,6 @@ def find_num(A, b):
             return i
     return "NOT FOUND"
 
+
 for b in boundaries:
     print(find_num(A, b))
-    
