@@ -1,30 +1,34 @@
+import random
 N = int(input())
 A = list(map(int, input().split()))
-# x = int(input())
+x = random.randint(0, N)
 
 
-def partition(l, r, sup_elem):
-    global A
-    arr_less = []
-    arr_other = []
-    while l <= r:
-        if A[l] < sup_elem:
-            arr_less.append(A[l])
-        else:
-            arr_other.append(A[l])
-        l += 1
-    A = arr_less + arr_other
-    return len(arr_less)
+def partition(l, r, sup_elem, arr):
+    Equal = 0
+    Bigger = 0
+    Now = 0
+    while Now < len(arr):
+        if arr[Now] < sup_elem:
+            tmp = arr[Now]
+            arr[Now] = arr[Bigger]
+            arr[Bigger] = arr[Equal]
+            arr[Equal] = tmp
+            Bigger += 1
+            Equal += 1
+        elif arr[Now] == sup_elem:
+            tmp = arr[Now]
+            arr[Now] = arr[Bigger]
+            arr[Bigger] = tmp
+            Bigger += 1
+        Now += 1
+
+    return len(arr[:Equal])
 
 
-def qs(l, r):
-    if l <= r:
-        x = A[l]
-        p = partition(l, r-1, x)
-        qs(l, p)
-        qs(p, r)
-
-
-# p = partition(0, N-1, x)
-qs(0, N-1)
-print(A)
+p = partition(0, N-1, x, A)
+# print(A)
+print("x=", x)
+print("less count = ", p)
+print("NOT less count = ", N-p)
+print(*A)
