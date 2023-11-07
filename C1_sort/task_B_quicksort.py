@@ -1,14 +1,13 @@
 import random
 N = int(input())
 A = list(map(int, input().split()))
-x = random.randint(0, N)
 
 
 def partition(l, r, sup_elem, arr):
     Equal = 0
     Bigger = 0
     Now = 0
-    while Now < len(arr):
+    while Now <= r-l:
         if arr[Now] < sup_elem:
             tmp = arr[Now]
             arr[Now] = arr[Bigger]
@@ -23,12 +22,24 @@ def partition(l, r, sup_elem, arr):
             Bigger += 1
         Now += 1
 
-    return len(arr[:Equal])
+    return Equal, Bigger
 
 
-p = partition(0, N-1, x, A)
+# x = random.randint(0, N)
+# p = partition(0, N-1, x, A)
 # print(A)
-print("x=", x)
-print("less count = ", p)
-print("NOT less count = ", N-p)
+# print("x=", x)
+# print("less count = ", p)
+# print("NOT less count = ", N-p)
+
+def qs(arr, l, r):
+    if l != r:
+        x = random.randint(l, r)
+        e, b = partition(l, r, x, arr)
+        qs(arr, l, e)
+        qs(arr, b, r)
+
+
+qs(A, 0, N-1)
+
 print(*A)
