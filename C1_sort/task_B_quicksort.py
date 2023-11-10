@@ -4,10 +4,10 @@ A = list(map(int, input().split()))
 
 
 def partition(l, r, sup_elem, arr):
-    Equal = 0
-    Bigger = 0
-    Now = 0
-    while Now <= r-l:
+    Equal = l
+    Bigger = l
+    Now = l
+    while Now <= r:
         if arr[Now] < sup_elem:
             tmp = arr[Now]
             arr[Now] = arr[Bigger]
@@ -25,17 +25,10 @@ def partition(l, r, sup_elem, arr):
     return Equal, Bigger
 
 
-# x = random.randint(0, N)
-# p = partition(0, N-1, x, A)
-# print(A)
-# print("x=", x)
-# print("less count = ", p)
-# print("NOT less count = ", N-p)
-
 def qs(arr, l, r):
-    if l != r:
+    if l < r:
         x = random.randint(l, r)
-        e, b = partition(l, r, x, arr)
+        e, b = partition(l, r, arr[x], arr)
         qs(arr, l, e)
         qs(arr, b, r)
 
